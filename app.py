@@ -17,6 +17,8 @@ except:
 
 genai.configure(api_key=api_key)
 
+os.environ["PATH"] += os.pathsep + '/usr/bin'
+
 def get_gemini_response(input, pdf_content, prompt):
     model = genai.GenerativeModel('gemini-2.5-pro')
     response = model.generate_content([input, *pdf_content, prompt])
@@ -26,7 +28,7 @@ def input_pdf_setup(uploaded_file):
     if uploaded_file is None:
         return None 
 
-    images = pdf2image.convert_from_bytes(uploaded_file.read())
+images = pdf2image.convert_from_bytes(uploaded_file.read(), poppler_path='/usr/bin')
     first_page = images[0]
 
     img_byte_arr = io.BytesIO()
@@ -104,4 +106,5 @@ if submit3:
             st.subheader("The response is:")
             st.write(response)
     else:
+
         st.warning("⚠️ Please upload a PDF before clicking this button.")
