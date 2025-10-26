@@ -1,1 +1,3 @@
 # ATS-tracker
+.env
+.streamlit/
