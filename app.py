@@ -28,7 +28,10 @@ def input_pdf_setup(uploaded_file):
     if uploaded_file is None:
         return None 
 
-images = pdf2image.convert_from_bytes(uploaded_file.read(), poppler_path='/usr/bin')
+    images = pdf2image.convert_from_bytes(
+        uploaded_file.read(),
+        poppler_path='/usr/bin'  # ADD THIS LINE
+    )
     first_page = images[0]
 
     img_byte_arr = io.BytesIO()
@@ -108,3 +111,4 @@ if submit3:
     else:
 
         st.warning("⚠️ Please upload a PDF before clicking this button.")
+
